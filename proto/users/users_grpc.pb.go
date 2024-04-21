@@ -30,9 +30,9 @@ const (
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type UsersClient interface {
-	Create(ctx context.Context, in *User, opts ...grpc.CallOption) (*Response, error)
-	Get(ctx context.Context, in *User, opts ...grpc.CallOption) (*Response, error)
-	GetAll(ctx context.Context, in *Request, opts ...grpc.CallOption) (*Response, error)
+	Create(ctx context.Context, in *User, opts ...grpc.CallOption) (*UserResponse, error)
+	Get(ctx context.Context, in *User, opts ...grpc.CallOption) (*UserResponse, error)
+	GetAll(ctx context.Context, in *Request, opts ...grpc.CallOption) (*UserResponse, error)
 	Auth(ctx context.Context, in *User, opts ...grpc.CallOption) (*Token, error)
 	ValidateToken(ctx context.Context, in *Token, opts ...grpc.CallOption) (*Token, error)
 }
@@ -45,8 +45,8 @@ func NewUsersClient(cc grpc.ClientConnInterface) UsersClient {
 	return &usersClient{cc}
 }
 
-func (c *usersClient) Create(ctx context.Context, in *User, opts ...grpc.CallOption) (*Response, error) {
-	out := new(Response)
+func (c *usersClient) Create(ctx context.Context, in *User, opts ...grpc.CallOption) (*UserResponse, error) {
+	out := new(UserResponse)
 	err := c.cc.Invoke(ctx, Users_Create_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -54,8 +54,8 @@ func (c *usersClient) Create(ctx context.Context, in *User, opts ...grpc.CallOpt
 	return out, nil
 }
 
-func (c *usersClient) Get(ctx context.Context, in *User, opts ...grpc.CallOption) (*Response, error) {
-	out := new(Response)
+func (c *usersClient) Get(ctx context.Context, in *User, opts ...grpc.CallOption) (*UserResponse, error) {
+	out := new(UserResponse)
 	err := c.cc.Invoke(ctx, Users_Get_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -63,8 +63,8 @@ func (c *usersClient) Get(ctx context.Context, in *User, opts ...grpc.CallOption
 	return out, nil
 }
 
-func (c *usersClient) GetAll(ctx context.Context, in *Request, opts ...grpc.CallOption) (*Response, error) {
-	out := new(Response)
+func (c *usersClient) GetAll(ctx context.Context, in *Request, opts ...grpc.CallOption) (*UserResponse, error) {
+	out := new(UserResponse)
 	err := c.cc.Invoke(ctx, Users_GetAll_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -94,9 +94,9 @@ func (c *usersClient) ValidateToken(ctx context.Context, in *Token, opts ...grpc
 // All implementations must embed UnimplementedUsersServer
 // for forward compatibility
 type UsersServer interface {
-	Create(context.Context, *User) (*Response, error)
-	Get(context.Context, *User) (*Response, error)
-	GetAll(context.Context, *Request) (*Response, error)
+	Create(context.Context, *User) (*UserResponse, error)
+	Get(context.Context, *User) (*UserResponse, error)
+	GetAll(context.Context, *Request) (*UserResponse, error)
 	Auth(context.Context, *User) (*Token, error)
 	ValidateToken(context.Context, *Token) (*Token, error)
 	mustEmbedUnimplementedUsersServer()
@@ -106,13 +106,13 @@ type UsersServer interface {
 type UnimplementedUsersServer struct {
 }
 
-func (UnimplementedUsersServer) Create(context.Context, *User) (*Response, error) {
+func (UnimplementedUsersServer) Create(context.Context, *User) (*UserResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Create not implemented")
 }
-func (UnimplementedUsersServer) Get(context.Context, *User) (*Response, error) {
+func (UnimplementedUsersServer) Get(context.Context, *User) (*UserResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Get not implemented")
 }
-func (UnimplementedUsersServer) GetAll(context.Context, *Request) (*Response, error) {
+func (UnimplementedUsersServer) GetAll(context.Context, *Request) (*UserResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetAll not implemented")
 }
 func (UnimplementedUsersServer) Auth(context.Context, *User) (*Token, error) {
