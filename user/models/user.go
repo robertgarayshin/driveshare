@@ -1,13 +1,13 @@
 package models
 
-import pb "github.com/robertgarayshin/driveshare/proto"
+import proto "github.com/robertgarayshin/driveshare/proto/users"
 
 type User struct {
 	Id int
 }
 
-func ToUserModel(user *pb.User) *User {
+func ToUserModel(user *proto.User) *User {
 	return &User{
-		Id: user.Id,
+		Id: int(user.Id),
 	}
 }

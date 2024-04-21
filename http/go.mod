@@ -4,7 +4,8 @@ go 1.21
 
 require (
 	github.com/gin-gonic/gin v1.9.1
-	github.com/robertgarayshin/driveshare v0.0.0-20240421000303-28fd066cc0c1
+	github.com/robertgarayshin/driveshare v0.0.0-20240421132637-985a8d360d42
+	github.com/sirupsen/logrus v1.1.1
 	google.golang.org/grpc v1.63.2
 )
 

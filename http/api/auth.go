@@ -1,20 +1,54 @@
 package api
 
 import (
-	"context"
 	"github.com/gin-gonic/gin"
-	"github.com/robertgarayshin/driveshare/proto"
+	proto "github.com/robertgarayshin/driveshare/proto/users"
 	"net/http"
 )
 
 func (h *Handler) signUp(c *gin.Context) {
 	var user *proto.User
-	c.BindJSON(&user)
-	test, err := h.Create(context.Background(), user)
-	if err != nil {
-		return
+
+	if err := c.Bind(&user); err != nil {
+		c.JSON(http.StatusBadRequest, map[string]interface{}{
+			"error": err,
+		})
 	}
+
+	userResponse, err := h.Create(c, user)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, map[string]interface{}{
+			"error": err,
+		})
+	}
+
 	c.JSON(http.StatusOK, map[string]interface{}{
-		"id": test.User.Id,
+		"id": userResponse.User.Id,
+	})
+}
+
+func (h *Handler) signIn(c *gin.Context) {
+	var user *proto.User
+
+	if err := c.Bind(&user); err != nil {
+		c.JSON(http.StatusBadRequest, map[string]interface{}{
+			"error": err,
+		})
+	}
+
+	tokenResponse, err := h.Auth(c, user)
+	if err != nil {
+		c.JSON(http.StatusUnauthorized, map[string]interface{}{
+			"error": err,
+		})
+	}
+
+	if len(tokenResponse.Errors) > 0 {
+		c.JSON(int(tokenResponse.Errors[0].Code), tokenResponse.Errors[0].Description)
+	}
+
+	c.JSON(http.StatusOK, map[string]interface{}{
+		"token":    tokenResponse.Token,
+		"is_valid": tokenResponse.Valid,
 	})
 }

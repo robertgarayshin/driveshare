@@ -2,16 +2,16 @@ package api
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/robertgarayshin/driveshare/proto"
+	users "github.com/robertgarayshin/driveshare/proto/users"
 )
 
 type Handler struct {
-	proto.UserClient
+	users.UsersClient
 }
 
-func NewHandler(client proto.UserClient) *Handler {
+func NewHandler(client users.UsersClient) *Handler {
 	return &Handler{
-		UserClient: client,
+		UsersClient: client,
 	}
 }
 
@@ -23,16 +23,15 @@ func (h *Handler) InitRoutes() *gin.Engine {
 	auth := router.Group("/auth")
 	{
 		auth.POST("/sign-up", h.signUp)
+		auth.POST("/sign-in", h.signIn)
 	}
-	//	auth.POST("/sign-in", h.signIn)
-	//}
-	//user := router.Group("/user")
-	//{
-	//	user.GET(":id", h.GetUserById)
-	//	user.GET("", h.GetAllUsers)
-	//	user.PUT(":id", h.EditProfile)
-	//	user.DELETE(":id", h.DeleteProfile)
-	//}
+	user := router.Group("/user")
+	{
+		user.GET(":id", h.GetUserById)
+		user.GET("", h.GetAllUsers)
+		//user.PUT(":id", h.EditProfile)
+		//user.DELETE(":id", h.DeleteProfile)
+	}
 	//car := router.Group("/car")
 	//{
 	//	car.POST("/new", h.NewCar)

@@ -4,7 +4,7 @@
 // - protoc             v5.26.1
 // source: users.proto
 
-package proto
+package users
 
 import (
 	context "context"
@@ -24,6 +24,8 @@ const (
 	Users_GetAll_FullMethodName        = "/users.Users/GetAll"
 	Users_Auth_FullMethodName          = "/users.Users/Auth"
 	Users_ValidateToken_FullMethodName = "/users.Users/ValidateToken"
+	Users_EditProfile_FullMethodName   = "/users.Users/EditProfile"
+	Users_DeleteProfile_FullMethodName = "/users.Users/DeleteProfile"
 )
 
 // UsersClient is the client API for Users service.
@@ -35,6 +37,8 @@ type UsersClient interface {
 	GetAll(ctx context.Context, in *Request, opts ...grpc.CallOption) (*UserResponse, error)
 	Auth(ctx context.Context, in *User, opts ...grpc.CallOption) (*Token, error)
 	ValidateToken(ctx context.Context, in *Token, opts ...grpc.CallOption) (*Token, error)
+	EditProfile(ctx context.Context, in *User, opts ...grpc.CallOption) (*UserResponse, error)
+	DeleteProfile(ctx context.Context, in *User, opts ...grpc.CallOption) (*UserResponse, error)
 }
 
 type usersClient struct {
@@ -90,6 +94,24 @@ func (c *usersClient) ValidateToken(ctx context.Context, in *Token, opts ...grpc
 	return out, nil
 }
 
+func (c *usersClient) EditProfile(ctx context.Context, in *User, opts ...grpc.CallOption) (*UserResponse, error) {
+	out := new(UserResponse)
+	err := c.cc.Invoke(ctx, Users_EditProfile_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *usersClient) DeleteProfile(ctx context.Context, in *User, opts ...grpc.CallOption) (*UserResponse, error) {
+	out := new(UserResponse)
+	err := c.cc.Invoke(ctx, Users_DeleteProfile_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // UsersServer is the server API for Users service.
 // All implementations must embed UnimplementedUsersServer
 // for forward compatibility
@@ -99,6 +121,8 @@ type UsersServer interface {
 	GetAll(context.Context, *Request) (*UserResponse, error)
 	Auth(context.Context, *User) (*Token, error)
 	ValidateToken(context.Context, *Token) (*Token, error)
+	EditProfile(context.Context, *User) (*UserResponse, error)
+	DeleteProfile(context.Context, *User) (*UserResponse, error)
 	mustEmbedUnimplementedUsersServer()
 }
 
@@ -120,6 +144,12 @@ func (UnimplementedUsersServer) Auth(context.Context, *User) (*Token, error) {
 }
 func (UnimplementedUsersServer) ValidateToken(context.Context, *Token) (*Token, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ValidateToken not implemented")
+}
+func (UnimplementedUsersServer) EditProfile(context.Context, *User) (*UserResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method EditProfile not implemented")
+}
+func (UnimplementedUsersServer) DeleteProfile(context.Context, *User) (*UserResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteProfile not implemented")
 }
 func (UnimplementedUsersServer) mustEmbedUnimplementedUsersServer() {}
 
@@ -224,6 +254,42 @@ func _Users_ValidateToken_Handler(srv interface{}, ctx context.Context, dec func
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Users_EditProfile_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(User)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UsersServer).EditProfile(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Users_EditProfile_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UsersServer).EditProfile(ctx, req.(*User))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Users_DeleteProfile_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(User)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UsersServer).DeleteProfile(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Users_DeleteProfile_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UsersServer).DeleteProfile(ctx, req.(*User))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Users_ServiceDesc is the grpc.ServiceDesc for Users service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -250,6 +316,14 @@ var Users_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "ValidateToken",
 			Handler:    _Users_ValidateToken_Handler,
+		},
+		{
+			MethodName: "EditProfile",
+			Handler:    _Users_EditProfile_Handler,
+		},
+		{
+			MethodName: "DeleteProfile",
+			Handler:    _Users_DeleteProfile_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
