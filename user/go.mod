@@ -3,7 +3,6 @@ module github.com/robertgarayshin/driveshare/user
 go 1.21
 
 require (
-	github.com/robertgarayshin/driveshare v0.0.0-20240421132637-985a8d360d42
 	google.golang.org/grpc v1.63.2
 )
 

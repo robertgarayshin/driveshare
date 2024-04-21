@@ -19,13 +19,13 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	Users_Create_FullMethodName        = "/users.Users/Create"
-	Users_Get_FullMethodName           = "/users.Users/Get"
-	Users_GetAll_FullMethodName        = "/users.Users/GetAll"
-	Users_Auth_FullMethodName          = "/users.Users/Auth"
-	Users_ValidateToken_FullMethodName = "/users.Users/ValidateToken"
-	Users_EditProfile_FullMethodName   = "/users.Users/EditProfile"
-	Users_DeleteProfile_FullMethodName = "/users.Users/DeleteProfile"
+	Users_Create_FullMethodName        = "/proto.users.Users/Create"
+	Users_Get_FullMethodName           = "/proto.users.Users/Get"
+	Users_GetAll_FullMethodName        = "/proto.users.Users/GetAll"
+	Users_Auth_FullMethodName          = "/proto.users.Users/Auth"
+	Users_ValidateToken_FullMethodName = "/proto.users.Users/ValidateToken"
+	Users_EditProfile_FullMethodName   = "/proto.users.Users/EditProfile"
+	Users_DeleteProfile_FullMethodName = "/proto.users.Users/DeleteProfile"
 )
 
 // UsersClient is the client API for Users service.
@@ -294,7 +294,7 @@ func _Users_DeleteProfile_Handler(srv interface{}, ctx context.Context, dec func
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var Users_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "users.Users",
+	ServiceName: "proto.users.Users",
 	HandlerType: (*UsersServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{

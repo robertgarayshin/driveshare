@@ -47,5 +47,5 @@ func (h *Handler) GetUserById(c *gin.Context) {
 }
 
 func (h *Handler) DeleteUser(c *gin.Context) {
-	h.
+
 }

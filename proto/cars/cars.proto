@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package cars;
+package proto.cars;
 
 option go_package = "github.com/robertgarayshin/driveshare/proto/cars";
 

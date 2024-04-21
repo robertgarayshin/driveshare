@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package users;
+package proto.users;
 
 option go_package = "github.com/robertgarayshin/driveshare/proto/users";
 

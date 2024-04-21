@@ -47,6 +47,7 @@ github.com/pmezard/go-difflib v1.0.0 h1:4DBwDE0NGyQoBHbLQYPwSUPoCMWR5BEzIk/f1lZb
 github.com/pmezard/go-difflib v1.0.0/go.mod h1:iKH77koFhYxTK1pcRnkKkqfTogsbg7gZNVY4sRDYZ/4=
 github.com/robertgarayshin/driveshare v0.0.0-20240421000303-28fd066cc0c1 h1:cm9QOkugfpEe6KpWsXBtmq6u4xe91d4RE0LcIVcQ2vY=
 github.com/robertgarayshin/driveshare v0.0.0-20240421000303-28fd066cc0c1/go.mod h1:PtUaIMBD5cgN0YkeGSkW/djqg+QWx5yLVop2Q//isdU=
+github.com/robertgarayshin/driveshare v0.0.0-20240421132637-985a8d360d42 h1:8KjsPxn50MDZ7jWdkf4cg8SDFg4H7CdtwwReR/cgyTo=
 github.com/robertgarayshin/driveshare v0.0.0-20240421132637-985a8d360d42/go.mod h1:PtUaIMBD5cgN0YkeGSkW/djqg+QWx5yLVop2Q//isdU=
 github.com/sirupsen/logrus v1.1.1/go.mod h1:zrgwTnHtNr00buQ1vSptGe8m1f/BbgsPukg8qsT7A+A=
 github.com/stretchr/objx v0.1.0/go.mod h1:HFkY916IF+rwdDfMAkV7OtwuqBVzrE8GR6GFx+wExME=
