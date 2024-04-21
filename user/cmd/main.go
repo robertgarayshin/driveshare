@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 	"github.com/robertgarayshin/driveshare/proto"
-	"github.com/robertgarayshin/driveshare/users/presenter"
+	"github.com/robertgarayshin/driveshare/user/presenter"
 	"google.golang.org/grpc"
 	"log"
 	"net"
