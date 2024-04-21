@@ -1,4 +1,4 @@
-module github.com/robertgarayshin/driveshare/users
+module github.com/robertgarayshin/driveshare/user
 
 go 1.21
 
