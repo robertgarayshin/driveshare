@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/robertgarayshin/driveshare/proto"
+	"github.com/robertgarayshin/driveshare/proto/users"
 	"github.com/robertgarayshin/driveshare/user/presenter"
 	"google.golang.org/grpc"
 	"log"
@@ -19,7 +19,7 @@ func main() {
 	}
 	var opts []grpc.ServerOption
 	grpcServer := grpc.NewServer(opts...)
-	proto.RegisterUserServer(grpcServer, new(presenter.UserServer))
+	users.Reg(grpcServer, new(presenter.UserServer))
 	log.Printf("Service started on port :%d", port)
 	grpcServer.Serve(listener)
 }

@@ -30,18 +30,18 @@ func (h *Handler) InitRoutes() *gin.Engine {
 	}
 	user := router.Group("/user")
 	{
-		user.GET(":id", h.GetUserById)
-		user.GET("", h.GetAllUsers)
+		user.GET(":id", h.UserById)
+		user.GET("", h.GetUsers)
 		user.PUT(":id", h.UpdateUser)
 		user.DELETE(":id", h.DeleteUser)
 	}
 	car := router.Group("/car")
 	{
 		car.POST("/new", h.NewCar)
-		car.GET("/", h.GetAllCars)
-		car.GET("/:id", h.GetCarById)
-		car.PUT("/:id", h.EditCar)
-		car.DELETE("/:id", h.DeleteCar)
+		car.GET("/", h.ListCars)
+		car.GET("/:id", h.GetCar)
+		car.PUT("/:id", h.EditCarRequest)
+		car.DELETE("/:id", h.DeleteCarRequest)
 	}
 	//rent := router.Group("/rent")
 	//{

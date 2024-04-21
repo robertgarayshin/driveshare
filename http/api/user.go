@@ -7,8 +7,8 @@ import (
 	"net/http"
 )
 
-func (h *Handler) GetAllUsers(c *gin.Context) {
-	usersResponse, err := h.GetAll(c, &users.Request{})
+func (h *Handler) GetUsers(c *gin.Context) {
+	usersResponse, err := h.GetAllUsers(c, &users.Request{})
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{
 			"error": err,
@@ -22,7 +22,7 @@ func (h *Handler) GetAllUsers(c *gin.Context) {
 	})
 }
 
-func (h *Handler) GetUserById(c *gin.Context) {
+func (h *Handler) UserById(c *gin.Context) {
 	var req *users.User
 
 	if err := c.Bind(&req); err != nil {
@@ -33,7 +33,7 @@ func (h *Handler) GetUserById(c *gin.Context) {
 		return
 	}
 
-	userResponse, err := h.Get(c, req)
+	userResponse, err := h.GetUserById(c, req)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, map[string]interface{}{
 			"error": err,
