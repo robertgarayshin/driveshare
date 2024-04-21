@@ -49,6 +49,8 @@ github.com/robertgarayshin/driveshare v0.0.0-20240421000303-28fd066cc0c1 h1:cm9Q
 github.com/robertgarayshin/driveshare v0.0.0-20240421000303-28fd066cc0c1/go.mod h1:PtUaIMBD5cgN0YkeGSkW/djqg+QWx5yLVop2Q//isdU=
 github.com/robertgarayshin/driveshare v0.0.0-20240421132637-985a8d360d42 h1:8KjsPxn50MDZ7jWdkf4cg8SDFg4H7CdtwwReR/cgyTo=
 github.com/robertgarayshin/driveshare v0.0.0-20240421132637-985a8d360d42/go.mod h1:PtUaIMBD5cgN0YkeGSkW/djqg+QWx5yLVop2Q//isdU=
+github.com/robertgarayshin/driveshare v0.0.0-20240421172212-55f315ec6db4 h1:nYt4eUmKFqYzJLZiPF9MfWqOrkBWN6pjSwbVO5+BvkU=
+github.com/robertgarayshin/driveshare v0.0.0-20240421172212-55f315ec6db4/go.mod h1:PtUaIMBD5cgN0YkeGSkW/djqg+QWx5yLVop2Q//isdU=
 github.com/sirupsen/logrus v1.1.1/go.mod h1:zrgwTnHtNr00buQ1vSptGe8m1f/BbgsPukg8qsT7A+A=
 github.com/stretchr/objx v0.1.0/go.mod h1:HFkY916IF+rwdDfMAkV7OtwuqBVzrE8GR6GFx+wExME=
 github.com/stretchr/objx v0.4.0/go.mod h1:YvHI0jy2hoMjB+UWwv71VJQ9isScKT/TqJzVSSt89Yw=

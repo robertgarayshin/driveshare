@@ -7,9 +7,9 @@ option go_package = "github.com/robertgarayshin/driveshare/proto/cars";
 import "users/users.proto";
 
 service Cars {
-  rpc Create(Car) returns (CarResponse);
-  rpc Edit(Car) returns (CarResponse);
-  rpc Delete(Car) returns (CarResponse);
+  rpc CreateCar(Car) returns (CarResponse);
+  rpc EditCar(Car) returns (CarResponse);
+  rpc DeleteCar(Car) returns (CarResponse);
   rpc GetAllCars(CarRequest) returns (CarResponse);
   rpc GetCarById(Car) returns (CarResponse);
 }

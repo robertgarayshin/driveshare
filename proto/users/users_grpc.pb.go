@@ -19,9 +19,9 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	Users_Create_FullMethodName        = "/proto.users.Users/Create"
-	Users_Get_FullMethodName           = "/proto.users.Users/Get"
-	Users_GetAll_FullMethodName        = "/proto.users.Users/GetAll"
+	Users_CreateUser_FullMethodName    = "/proto.users.Users/CreateUser"
+	Users_GetUserById_FullMethodName   = "/proto.users.Users/GetUserById"
+	Users_GetAllUsers_FullMethodName   = "/proto.users.Users/GetAllUsers"
 	Users_Auth_FullMethodName          = "/proto.users.Users/Auth"
 	Users_ValidateToken_FullMethodName = "/proto.users.Users/ValidateToken"
 	Users_EditProfile_FullMethodName   = "/proto.users.Users/EditProfile"
@@ -32,9 +32,9 @@ const (
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type UsersClient interface {
-	Create(ctx context.Context, in *User, opts ...grpc.CallOption) (*UserResponse, error)
-	Get(ctx context.Context, in *User, opts ...grpc.CallOption) (*UserResponse, error)
-	GetAll(ctx context.Context, in *Request, opts ...grpc.CallOption) (*UserResponse, error)
+	CreateUser(ctx context.Context, in *User, opts ...grpc.CallOption) (*UserResponse, error)
+	GetUserById(ctx context.Context, in *User, opts ...grpc.CallOption) (*UserResponse, error)
+	GetAllUsers(ctx context.Context, in *Request, opts ...grpc.CallOption) (*UserResponse, error)
 	Auth(ctx context.Context, in *User, opts ...grpc.CallOption) (*Token, error)
 	ValidateToken(ctx context.Context, in *Token, opts ...grpc.CallOption) (*Token, error)
 	EditProfile(ctx context.Context, in *User, opts ...grpc.CallOption) (*UserResponse, error)
@@ -49,27 +49,27 @@ func NewUsersClient(cc grpc.ClientConnInterface) UsersClient {
 	return &usersClient{cc}
 }
 
-func (c *usersClient) Create(ctx context.Context, in *User, opts ...grpc.CallOption) (*UserResponse, error) {
+func (c *usersClient) CreateUser(ctx context.Context, in *User, opts ...grpc.CallOption) (*UserResponse, error) {
 	out := new(UserResponse)
-	err := c.cc.Invoke(ctx, Users_Create_FullMethodName, in, out, opts...)
+	err := c.cc.Invoke(ctx, Users_CreateUser_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *usersClient) Get(ctx context.Context, in *User, opts ...grpc.CallOption) (*UserResponse, error) {
+func (c *usersClient) GetUserById(ctx context.Context, in *User, opts ...grpc.CallOption) (*UserResponse, error) {
 	out := new(UserResponse)
-	err := c.cc.Invoke(ctx, Users_Get_FullMethodName, in, out, opts...)
+	err := c.cc.Invoke(ctx, Users_GetUserById_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *usersClient) GetAll(ctx context.Context, in *Request, opts ...grpc.CallOption) (*UserResponse, error) {
+func (c *usersClient) GetAllUsers(ctx context.Context, in *Request, opts ...grpc.CallOption) (*UserResponse, error) {
 	out := new(UserResponse)
-	err := c.cc.Invoke(ctx, Users_GetAll_FullMethodName, in, out, opts...)
+	err := c.cc.Invoke(ctx, Users_GetAllUsers_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -116,9 +116,9 @@ func (c *usersClient) DeleteProfile(ctx context.Context, in *User, opts ...grpc.
 // All implementations must embed UnimplementedUsersServer
 // for forward compatibility
 type UsersServer interface {
-	Create(context.Context, *User) (*UserResponse, error)
-	Get(context.Context, *User) (*UserResponse, error)
-	GetAll(context.Context, *Request) (*UserResponse, error)
+	CreateUser(context.Context, *User) (*UserResponse, error)
+	GetUserById(context.Context, *User) (*UserResponse, error)
+	GetAllUsers(context.Context, *Request) (*UserResponse, error)
 	Auth(context.Context, *User) (*Token, error)
 	ValidateToken(context.Context, *Token) (*Token, error)
 	EditProfile(context.Context, *User) (*UserResponse, error)
@@ -130,14 +130,14 @@ type UsersServer interface {
 type UnimplementedUsersServer struct {
 }
 
-func (UnimplementedUsersServer) Create(context.Context, *User) (*UserResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method Create not implemented")
+func (UnimplementedUsersServer) CreateUser(context.Context, *User) (*UserResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateUser not implemented")
 }
-func (UnimplementedUsersServer) Get(context.Context, *User) (*UserResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method Get not implemented")
+func (UnimplementedUsersServer) GetUserById(context.Context, *User) (*UserResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetUserById not implemented")
 }
-func (UnimplementedUsersServer) GetAll(context.Context, *Request) (*UserResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetAll not implemented")
+func (UnimplementedUsersServer) GetAllUsers(context.Context, *Request) (*UserResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetAllUsers not implemented")
 }
 func (UnimplementedUsersServer) Auth(context.Context, *User) (*Token, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Auth not implemented")
@@ -164,56 +164,56 @@ func RegisterUsersServer(s grpc.ServiceRegistrar, srv UsersServer) {
 	s.RegisterService(&Users_ServiceDesc, srv)
 }
 
-func _Users_Create_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _Users_CreateUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(User)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(UsersServer).Create(ctx, in)
+		return srv.(UsersServer).CreateUser(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: Users_Create_FullMethodName,
+		FullMethod: Users_CreateUser_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(UsersServer).Create(ctx, req.(*User))
+		return srv.(UsersServer).CreateUser(ctx, req.(*User))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Users_Get_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _Users_GetUserById_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(User)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(UsersServer).Get(ctx, in)
+		return srv.(UsersServer).GetUserById(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: Users_Get_FullMethodName,
+		FullMethod: Users_GetUserById_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(UsersServer).Get(ctx, req.(*User))
+		return srv.(UsersServer).GetUserById(ctx, req.(*User))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Users_GetAll_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _Users_GetAllUsers_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(Request)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(UsersServer).GetAll(ctx, in)
+		return srv.(UsersServer).GetAllUsers(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: Users_GetAll_FullMethodName,
+		FullMethod: Users_GetAllUsers_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(UsersServer).GetAll(ctx, req.(*Request))
+		return srv.(UsersServer).GetAllUsers(ctx, req.(*Request))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -298,16 +298,16 @@ var Users_ServiceDesc = grpc.ServiceDesc{
 	HandlerType: (*UsersServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "Create",
-			Handler:    _Users_Create_Handler,
+			MethodName: "CreateUser",
+			Handler:    _Users_CreateUser_Handler,
 		},
 		{
-			MethodName: "Get",
-			Handler:    _Users_Get_Handler,
+			MethodName: "GetUserById",
+			Handler:    _Users_GetUserById_Handler,
 		},
 		{
-			MethodName: "GetAll",
-			Handler:    _Users_GetAll_Handler,
+			MethodName: "GetAllUsers",
+			Handler:    _Users_GetAllUsers_Handler,
 		},
 		{
 			MethodName: "Auth",

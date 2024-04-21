@@ -3,7 +3,8 @@ package main
 import (
 	"github.com/robertgarayshin/driveshare/http"
 	"github.com/robertgarayshin/driveshare/http/api"
-	pb "github.com/robertgarayshin/driveshare/proto"
+	"github.com/robertgarayshin/driveshare/proto/cars"
+	"github.com/robertgarayshin/driveshare/proto/users"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
 	"log"
@@ -22,9 +23,10 @@ func main() {
 		log.Fatalf("fail to dial: %v", err)
 	}
 	defer conn.Close()
-	client := pb.NewUserClient(conn)
+	usersClient := users.NewUsersClient(conn)
+	carsClient := cars.NewCarsClient(conn)
 
 	server := new(http.Server)
-	handler := api.NewHandler(client)
+	handler := api.NewHandler(usersClient, carsClient)
 	server.Run(handler.InitRoutes(), "8080")
 }

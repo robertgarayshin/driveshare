@@ -19,9 +19,9 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	Cars_Create_FullMethodName     = "/proto.cars.Cars/Create"
-	Cars_Edit_FullMethodName       = "/proto.cars.Cars/Edit"
-	Cars_Delete_FullMethodName     = "/proto.cars.Cars/Delete"
+	Cars_CreateCar_FullMethodName  = "/proto.cars.Cars/CreateCar"
+	Cars_EditCar_FullMethodName    = "/proto.cars.Cars/EditCar"
+	Cars_DeleteCar_FullMethodName  = "/proto.cars.Cars/DeleteCar"
 	Cars_GetAllCars_FullMethodName = "/proto.cars.Cars/GetAllCars"
 	Cars_GetCarById_FullMethodName = "/proto.cars.Cars/GetCarById"
 )
@@ -30,9 +30,9 @@ const (
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type CarsClient interface {
-	Create(ctx context.Context, in *Car, opts ...grpc.CallOption) (*CarResponse, error)
-	Edit(ctx context.Context, in *Car, opts ...grpc.CallOption) (*CarResponse, error)
-	Delete(ctx context.Context, in *Car, opts ...grpc.CallOption) (*CarResponse, error)
+	CreateCar(ctx context.Context, in *Car, opts ...grpc.CallOption) (*CarResponse, error)
+	EditCar(ctx context.Context, in *Car, opts ...grpc.CallOption) (*CarResponse, error)
+	DeleteCar(ctx context.Context, in *Car, opts ...grpc.CallOption) (*CarResponse, error)
 	GetAllCars(ctx context.Context, in *CarRequest, opts ...grpc.CallOption) (*CarResponse, error)
 	GetCarById(ctx context.Context, in *Car, opts ...grpc.CallOption) (*CarResponse, error)
 }
@@ -45,27 +45,27 @@ func NewCarsClient(cc grpc.ClientConnInterface) CarsClient {
 	return &carsClient{cc}
 }
 
-func (c *carsClient) Create(ctx context.Context, in *Car, opts ...grpc.CallOption) (*CarResponse, error) {
+func (c *carsClient) CreateCar(ctx context.Context, in *Car, opts ...grpc.CallOption) (*CarResponse, error) {
 	out := new(CarResponse)
-	err := c.cc.Invoke(ctx, Cars_Create_FullMethodName, in, out, opts...)
+	err := c.cc.Invoke(ctx, Cars_CreateCar_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *carsClient) Edit(ctx context.Context, in *Car, opts ...grpc.CallOption) (*CarResponse, error) {
+func (c *carsClient) EditCar(ctx context.Context, in *Car, opts ...grpc.CallOption) (*CarResponse, error) {
 	out := new(CarResponse)
-	err := c.cc.Invoke(ctx, Cars_Edit_FullMethodName, in, out, opts...)
+	err := c.cc.Invoke(ctx, Cars_EditCar_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *carsClient) Delete(ctx context.Context, in *Car, opts ...grpc.CallOption) (*CarResponse, error) {
+func (c *carsClient) DeleteCar(ctx context.Context, in *Car, opts ...grpc.CallOption) (*CarResponse, error) {
 	out := new(CarResponse)
-	err := c.cc.Invoke(ctx, Cars_Delete_FullMethodName, in, out, opts...)
+	err := c.cc.Invoke(ctx, Cars_DeleteCar_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -94,9 +94,9 @@ func (c *carsClient) GetCarById(ctx context.Context, in *Car, opts ...grpc.CallO
 // All implementations must embed UnimplementedCarsServer
 // for forward compatibility
 type CarsServer interface {
-	Create(context.Context, *Car) (*CarResponse, error)
-	Edit(context.Context, *Car) (*CarResponse, error)
-	Delete(context.Context, *Car) (*CarResponse, error)
+	CreateCar(context.Context, *Car) (*CarResponse, error)
+	EditCar(context.Context, *Car) (*CarResponse, error)
+	DeleteCar(context.Context, *Car) (*CarResponse, error)
 	GetAllCars(context.Context, *CarRequest) (*CarResponse, error)
 	GetCarById(context.Context, *Car) (*CarResponse, error)
 	mustEmbedUnimplementedCarsServer()
@@ -106,14 +106,14 @@ type CarsServer interface {
 type UnimplementedCarsServer struct {
 }
 
-func (UnimplementedCarsServer) Create(context.Context, *Car) (*CarResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method Create not implemented")
+func (UnimplementedCarsServer) CreateCar(context.Context, *Car) (*CarResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateCar not implemented")
 }
-func (UnimplementedCarsServer) Edit(context.Context, *Car) (*CarResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method Edit not implemented")
+func (UnimplementedCarsServer) EditCar(context.Context, *Car) (*CarResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method EditCar not implemented")
 }
-func (UnimplementedCarsServer) Delete(context.Context, *Car) (*CarResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method Delete not implemented")
+func (UnimplementedCarsServer) DeleteCar(context.Context, *Car) (*CarResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteCar not implemented")
 }
 func (UnimplementedCarsServer) GetAllCars(context.Context, *CarRequest) (*CarResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetAllCars not implemented")
@@ -134,56 +134,56 @@ func RegisterCarsServer(s grpc.ServiceRegistrar, srv CarsServer) {
 	s.RegisterService(&Cars_ServiceDesc, srv)
 }
 
-func _Cars_Create_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _Cars_CreateCar_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(Car)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(CarsServer).Create(ctx, in)
+		return srv.(CarsServer).CreateCar(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: Cars_Create_FullMethodName,
+		FullMethod: Cars_CreateCar_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(CarsServer).Create(ctx, req.(*Car))
+		return srv.(CarsServer).CreateCar(ctx, req.(*Car))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Cars_Edit_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _Cars_EditCar_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(Car)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(CarsServer).Edit(ctx, in)
+		return srv.(CarsServer).EditCar(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: Cars_Edit_FullMethodName,
+		FullMethod: Cars_EditCar_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(CarsServer).Edit(ctx, req.(*Car))
+		return srv.(CarsServer).EditCar(ctx, req.(*Car))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Cars_Delete_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _Cars_DeleteCar_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(Car)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(CarsServer).Delete(ctx, in)
+		return srv.(CarsServer).DeleteCar(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: Cars_Delete_FullMethodName,
+		FullMethod: Cars_DeleteCar_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(CarsServer).Delete(ctx, req.(*Car))
+		return srv.(CarsServer).DeleteCar(ctx, req.(*Car))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -232,16 +232,16 @@ var Cars_ServiceDesc = grpc.ServiceDesc{
 	HandlerType: (*CarsServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "Create",
-			Handler:    _Cars_Create_Handler,
+			MethodName: "CreateCar",
+			Handler:    _Cars_CreateCar_Handler,
 		},
 		{
-			MethodName: "Edit",
-			Handler:    _Cars_Edit_Handler,
+			MethodName: "EditCar",
+			Handler:    _Cars_EditCar_Handler,
 		},
 		{
-			MethodName: "Delete",
-			Handler:    _Cars_Delete_Handler,
+			MethodName: "DeleteCar",
+			Handler:    _Cars_DeleteCar_Handler,
 		},
 		{
 			MethodName: "GetAllCars",

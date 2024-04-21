@@ -1,6 +1,7 @@
 package api
 
 import (
+	"fmt"
 	"github.com/gin-gonic/gin"
 	proto "github.com/robertgarayshin/driveshare/proto/users"
 	"net/http"
@@ -47,5 +48,47 @@ func (h *Handler) GetUserById(c *gin.Context) {
 }
 
 func (h *Handler) DeleteUser(c *gin.Context) {
+	var req *proto.User
+	if err := c.Bind(&req); err != nil {
+		c.JSON(http.StatusBadRequest, map[string]interface{}{
+			"error": err,
+		})
 
+		return
+	}
+
+	response, err := h.DeleteProfile(c, req)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, map[string]interface{}{
+			"error": err,
+		})
+
+		return
+	}
+
+	c.JSON(http.StatusOK, map[string]interface{}{
+		"message": fmt.Sprintf("user %d successfully deleted", response.User.Id),
+	})
+}
+
+func (h *Handler) UpdateUser(c *gin.Context) {
+	var req *proto.User
+	if err := c.Bind(&req); err != nil {
+		c.JSON(http.StatusBadRequest, map[string]interface{}{
+			"error": err,
+		})
+		return
+	}
+
+	response, err := h.EditProfile(c, req)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, map[string]interface{}{
+			"error": err,
+		})
+		return
+	}
+
+	c.JSON(http.StatusOK, map[string]interface{}{
+		"message": fmt.Sprintf("user %d successfully updated", response.User.Id),
+	})
 }

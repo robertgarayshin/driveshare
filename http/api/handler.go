@@ -2,16 +2,19 @@ package api
 
 import (
 	"github.com/gin-gonic/gin"
-	users "github.com/robertgarayshin/driveshare/proto/users"
+	"github.com/robertgarayshin/driveshare/proto/cars"
+	"github.com/robertgarayshin/driveshare/proto/users"
 )
 
 type Handler struct {
 	users.UsersClient
+	cars.CarsClient
 }
 
-func NewHandler(client users.UsersClient) *Handler {
+func NewHandler(usersClient users.UsersClient, carsClient cars.CarsClient) *Handler {
 	return &Handler{
-		UsersClient: client,
+		UsersClient: usersClient,
+		CarsClient:  carsClient,
 	}
 }
 
@@ -29,17 +32,17 @@ func (h *Handler) InitRoutes() *gin.Engine {
 	{
 		user.GET(":id", h.GetUserById)
 		user.GET("", h.GetAllUsers)
-		//user.PUT(":id", h.EditProfile)
-		//user.DELETE(":id", h.DeleteProfile)
+		user.PUT(":id", h.UpdateUser)
+		user.DELETE(":id", h.DeleteUser)
 	}
-	//car := router.Group("/car")
-	//{
-	//	car.POST("/new", h.NewCar)
-	//	car.GET("/", h.GetAllCars)
-	//	car.GET("/:id", h.GetCarById)
-	//	car.PUT("/:id", h.EditCar)
-	//	car.DELETE("/:id", h.DeleteCar)
-	//}
+	car := router.Group("/car")
+	{
+		car.POST("/new", h.NewCar)
+		car.GET("/", h.GetAllCars)
+		car.GET("/:id", h.GetCarById)
+		car.PUT("/:id", h.EditCar)
+		car.DELETE("/:id", h.DeleteCar)
+	}
 	//rent := router.Group("/rent")
 	//{
 	//	rent.POST("/new", h.NewRent)
