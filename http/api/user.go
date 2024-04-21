@@ -3,12 +3,12 @@ package api
 import (
 	"fmt"
 	"github.com/gin-gonic/gin"
-	proto "github.com/robertgarayshin/driveshare/proto/users"
+	"github.com/robertgarayshin/driveshare/proto/users"
 	"net/http"
 )
 
 func (h *Handler) GetAllUsers(c *gin.Context) {
-	usersResponse, err := h.GetAll(c, &proto.Request{})
+	usersResponse, err := h.GetAll(c, &users.Request{})
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{
 			"error": err,
@@ -23,7 +23,7 @@ func (h *Handler) GetAllUsers(c *gin.Context) {
 }
 
 func (h *Handler) GetUserById(c *gin.Context) {
-	var req *proto.User
+	var req *users.User
 
 	if err := c.Bind(&req); err != nil {
 		c.JSON(http.StatusBadRequest, map[string]interface{}{
@@ -48,7 +48,7 @@ func (h *Handler) GetUserById(c *gin.Context) {
 }
 
 func (h *Handler) DeleteUser(c *gin.Context) {
-	var req *proto.User
+	var req *users.User
 	if err := c.Bind(&req); err != nil {
 		c.JSON(http.StatusBadRequest, map[string]interface{}{
 			"error": err,
@@ -72,7 +72,7 @@ func (h *Handler) DeleteUser(c *gin.Context) {
 }
 
 func (h *Handler) UpdateUser(c *gin.Context) {
-	var req *proto.User
+	var req *users.User
 	if err := c.Bind(&req); err != nil {
 		c.JSON(http.StatusBadRequest, map[string]interface{}{
 			"error": err,
