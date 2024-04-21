@@ -1,0 +1,76 @@
+syntax = "proto3";
+
+option go_package = "github.com/robertgarayshin/driveshare/proto";
+
+import "users/users.proto";
+
+service Cars {
+  rpc Create(Car) returns (CarResponse);
+}
+
+message Car {
+  int32 id = 1;
+  string brand = 2;
+  string model = 3;
+  string engine = 4;
+  Drive drive = 5;
+  string year = 6;
+  string seats = 7;
+  Gear gear = 8;
+  int32 mileage = 9;
+  Body body = 10;
+  Class class = 11;
+  Steering_Side steering_side = 12;
+  users.User owner = 13;
+}
+
+enum Drive {
+  DRIVE_INVALID = 0;
+  DRIVE_FRONT = 1;
+  DRIVE_REAR = 2;
+  DRIVES_ALL = 3;
+}
+
+enum Gear {
+  GEAR_INVALID = 0;
+  GEAR_AUTO = 1;
+  GEAR_MANUAL = 2;
+  GEAR_ROBOT = 3;
+}
+
+enum Body {
+  BODY_INVALID = 0;
+  BODY_SALOON = 1;
+  BODY_HATCHBACK = 2;
+  BODY_COUPE = 3;
+  BODY_ESTATE = 4;
+  BODY_CABRIOLET = 5;
+  BODY_ROADSTER = 6;
+  BODY_SUV = 7;
+  BODY_PICKUP = 8;
+  BODY_CUV = 9;
+  BODY_LIMOUSINE = 10;
+  BODY_MINIVAN = 11;
+  BODY_VAN = 12;
+}
+
+enum Class {
+  CLASS_INVALID = 0;
+  CLASS_ECONOMY = 1;
+  CLASS_COMFORT = 2;
+  CLASS_BUSINESS = 3;
+  CLASS_PREMIUM = 4;
+  CLASS_SUV = 5;
+  CLASS_VAN = 6;
+  CLASS_UNIQUE = 7;
+}
+
+enum Steering_Side {
+  STEERING_SIDE_INVALID = 0;
+  STEERING_SIDE_LEFT = 1;
+  STEERING_SIDE_RIGHT = 2;
+}
+
+message CarResponse {
+
+}
