@@ -3,7 +3,7 @@ package presenter
 import (
 	"context"
 	"fmt"
-	"github.com/robertgarayshin/driveshare/proto"
+	"github.com/robertgarayshin/driveshare/proto/users"
 )
 
 type UserServer struct {
