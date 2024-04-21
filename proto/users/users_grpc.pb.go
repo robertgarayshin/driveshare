@@ -19,13 +19,13 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	Users_CreateUser_FullMethodName    = "/proto.users.Users/CreateUser"
-	Users_GetUserById_FullMethodName   = "/proto.users.Users/GetUserById"
-	Users_GetAllUsers_FullMethodName   = "/proto.users.Users/GetAllUsers"
-	Users_Auth_FullMethodName          = "/proto.users.Users/Auth"
-	Users_ValidateToken_FullMethodName = "/proto.users.Users/ValidateToken"
-	Users_EditProfile_FullMethodName   = "/proto.users.Users/EditProfile"
-	Users_DeleteProfile_FullMethodName = "/proto.users.Users/DeleteProfile"
+	Users_CreateUser_FullMethodName    = "/driveshare.proto.users.Users/CreateUser"
+	Users_GetUserById_FullMethodName   = "/driveshare.proto.users.Users/GetUserById"
+	Users_GetAllUsers_FullMethodName   = "/driveshare.proto.users.Users/GetAllUsers"
+	Users_Auth_FullMethodName          = "/driveshare.proto.users.Users/Auth"
+	Users_ValidateToken_FullMethodName = "/driveshare.proto.users.Users/ValidateToken"
+	Users_EditProfile_FullMethodName   = "/driveshare.proto.users.Users/EditProfile"
+	Users_DeleteProfile_FullMethodName = "/driveshare.proto.users.Users/DeleteProfile"
 )
 
 // UsersClient is the client API for Users service.
@@ -294,7 +294,7 @@ func _Users_DeleteProfile_Handler(srv interface{}, ctx context.Context, dec func
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var Users_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "proto.users.Users",
+	ServiceName: "driveshare.proto.users.Users",
 	HandlerType: (*UsersServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{

@@ -19,11 +19,11 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	Cars_CreateCar_FullMethodName  = "/proto.cars.Cars/CreateCar"
-	Cars_EditCar_FullMethodName    = "/proto.cars.Cars/EditCar"
-	Cars_DeleteCar_FullMethodName  = "/proto.cars.Cars/DeleteCar"
-	Cars_GetAllCars_FullMethodName = "/proto.cars.Cars/GetAllCars"
-	Cars_GetCarById_FullMethodName = "/proto.cars.Cars/GetCarById"
+	Cars_CreateCar_FullMethodName  = "/driveshare.proto.cars.Cars/CreateCar"
+	Cars_EditCar_FullMethodName    = "/driveshare.proto.cars.Cars/EditCar"
+	Cars_DeleteCar_FullMethodName  = "/driveshare.proto.cars.Cars/DeleteCar"
+	Cars_GetAllCars_FullMethodName = "/driveshare.proto.cars.Cars/GetAllCars"
+	Cars_GetCarById_FullMethodName = "/driveshare.proto.cars.Cars/GetCarById"
 )
 
 // CarsClient is the client API for Cars service.
@@ -228,7 +228,7 @@ func _Cars_GetCarById_Handler(srv interface{}, ctx context.Context, dec func(int
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var Cars_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "proto.cars.Cars",
+	ServiceName: "driveshare.proto.cars.Cars",
 	HandlerType: (*CarsServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
