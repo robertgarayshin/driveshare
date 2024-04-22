@@ -44,10 +44,8 @@ github.com/pelletier/go-toml/v2 v2.0.8 h1:0ctb6s9mE31h0/lhu+J6OPmVeDxJn+kYnJc2jZ
 github.com/pelletier/go-toml/v2 v2.0.8/go.mod h1:vuYfssBdrU2XDZ9bYydBu6t+6a6PYNcZljzZR9VXg+4=
 github.com/pmezard/go-difflib v1.0.0 h1:4DBwDE0NGyQoBHbLQYPwSUPoCMWR5BEzIk/f1lZbAQM=
 github.com/pmezard/go-difflib v1.0.0/go.mod h1:iKH77koFhYxTK1pcRnkKkqfTogsbg7gZNVY4sRDYZ/4=
-github.com/robertgarayshin/driveshare v0.0.0-20240421172212-55f315ec6db4 h1:nYt4eUmKFqYzJLZiPF9MfWqOrkBWN6pjSwbVO5+BvkU=
-github.com/robertgarayshin/driveshare v0.0.0-20240421172212-55f315ec6db4/go.mod h1:PtUaIMBD5cgN0YkeGSkW/djqg+QWx5yLVop2Q//isdU=
-github.com/robertgarayshin/driveshare v0.0.0-20240421175535-fb6ae3e9117c h1:WFYc74z8UWmgKmk19cE/cwJRhYS+U3DyUjuI61gDSDQ=
-github.com/robertgarayshin/driveshare v0.0.0-20240421175535-fb6ae3e9117c/go.mod h1:rzOAVzd6yXq/7q7kjAIWIXGbKT1FwHNaCdZJ/6M/QCY=
+github.com/robertgarayshin/driveshare v0.0.0-20240421195230-fd11e42a062a h1:CmxsPkSxkUOFtR/WzI8q6myYsiinRy3WqWYpyB7D/jo=
+github.com/robertgarayshin/driveshare v0.0.0-20240421195230-fd11e42a062a/go.mod h1:rzOAVzd6yXq/7q7kjAIWIXGbKT1FwHNaCdZJ/6M/QCY=
 github.com/stretchr/objx v0.1.0/go.mod h1:HFkY916IF+rwdDfMAkV7OtwuqBVzrE8GR6GFx+wExME=
 github.com/stretchr/objx v0.4.0/go.mod h1:YvHI0jy2hoMjB+UWwv71VJQ9isScKT/TqJzVSSt89Yw=
 github.com/stretchr/objx v0.5.0/go.mod h1:Yh+to48EsGEfYuaHDzXPcE3xhTkx73EhmCGUpEOglKo=
