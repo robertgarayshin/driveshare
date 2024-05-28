@@ -33,7 +33,7 @@ func main() {
 
 	grpcServer := grpc.NewServer()
 	userHandler := grpc2.NewUserHandler(userUsecase)
-	user2.RegisterUserServiceServer()
+	user.RegisterUserServiceServer(grpcServer, userHandler)
 	reflection.Register(grpcServer)
 
 	go func() {

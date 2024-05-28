@@ -1,12 +1,12 @@
 package rest
 
 import (
-	"booking-service/proto/booking"
-	"car-service/proto/car"
 	"context"
 	"encoding/json"
+	"github.com/robertgarayshin/driveshare/pkg/model/booking"
+	"github.com/robertgarayshin/driveshare/pkg/model/car"
+	"github.com/robertgarayshin/driveshare/pkg/model/user"
 	"net/http"
-	"user-service/proto/user"
 
 	"github.com/gorilla/mux"
 	"google.golang.org/grpc"

@@ -2,7 +2,7 @@ package grpc
 
 import (
 	"context"
-	pb "driveshare/pkg/model/proto/user"
+	pb "github.com/robertgarayshin/driveshare/pkg/model/user"
 	"user/usecase"
 )
 

@@ -3,7 +3,7 @@ package repository
 import (
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/postgres"
-	"user-service/domain"
+	"user/domain"
 )
 
 type userRepository struct {
