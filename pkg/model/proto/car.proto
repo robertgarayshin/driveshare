@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+package car;
+option go_package = "github.com/robertgarayshin/driveshare/pkg/model/car";
+
+service CarService {
+  rpc CreateCar (CreateCarRequest) returns (CreateCarResponse);
+  rpc GetCar (GetCarRequest) returns (GetCarResponse);
+}
+
+message CreateCarRequest {
+  string model = 1;
+  string brand = 2;
+  bool available = 3;
+}
+
+message CreateCarResponse {
+  string id = 1;
+  string model = 2;
+  string brand = 3;
+  bool available = 4;
+}
+
+message GetCarRequest {
+  string id = 1;
+}
+
+message GetCarResponse {
+  string id = 1;
+  string model = 2;
+  string brand = 3;
+  bool available = 4;
+}

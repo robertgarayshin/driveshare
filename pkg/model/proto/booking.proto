@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+package booking;
+option go_package = "github.com/robertgarayshin/driveshare/pkg/model/booking";
+
+service BookingService {
+  rpc CreateBooking (CreateBookingRequest) returns (CreateBookingResponse);
+  rpc GetBooking (GetBookingRequest) returns (GetBookingResponse);
+}
+
+message CreateBookingRequest {
+  string user_id = 1;
+  string car_id = 2;
+}
+
+message CreateBookingResponse {
+  string id = 1;
+  string user_id = 2;
+  string car_id = 3;
+}
+
+message GetBookingRequest {
+  string id = 1;
+}
+
+message GetBookingResponse {
+  string id = 1;
+  string user_id = 2;
+  string car_id = 3;
+}

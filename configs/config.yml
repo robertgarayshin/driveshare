@@ -1,5 +1,0 @@
-host: localhost
-port: 8080
-
-cars:
-  port: 50523
