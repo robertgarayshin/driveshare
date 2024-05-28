@@ -1,14 +1,12 @@
 package rest
 
 import (
-	"context"
-	"encoding/json"
+	"github.com/gin-gonic/gin"
 	"github.com/robertgarayshin/driveshare/pkg/model/booking"
 	"github.com/robertgarayshin/driveshare/pkg/model/car"
 	"github.com/robertgarayshin/driveshare/pkg/model/user"
 	"net/http"
 
-	"github.com/gorilla/mux"
 	"google.golang.org/grpc"
 )
 
@@ -26,36 +24,23 @@ func NewGatewayHandler(userConn, carConn, bookingConn *grpc.ClientConn) *Gateway
 	}
 }
 
-func (h *GatewayHandler) CreateUser(w http.ResponseWriter, r *http.Request) {
-	var req struct {
-		Name     string `json:"name"`
-		Email    string `json:"email"`
-		Password string `json:"password"`
+func (h *GatewayHandler) RegisterRoutes() *gin.Engine {
+	router := gin.New()
+	users := router.Group("/users")
+	{
+		users.GET(":id", h.GetUser)
 	}
-	json.NewDecoder(r.Body).Decode(&req)
 
-	userReq := &user.CreateUserRequest{
-		Name:     req.Name,
-		Email:    req.Email,
-		Password: req.Password,
-	}
-	userResp, err := h.userClient.CreateUser(context.Background(), userReq)
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
-	}
-	json.NewEncoder(w).Encode(userResp)
+	return router
 }
 
-func (h *GatewayHandler) GetUser(w http.ResponseWriter, r *http.Request) {
-	id := mux.Vars(r)["id"]
+func (h *GatewayHandler) GetUser(ctx *gin.Context) {
+	id := ctx.Param("id")
 	userReq := &user.GetUserRequest{Id: id}
-	userResp, err := h.userClient.GetUser(context.Background(), userReq)
+	userResp, err := h.userClient.GetUser(ctx, userReq)
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
+		ctx.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	}
-	json.NewEncoder(w).Encode(userResp)
+	ctx.JSON(http.StatusOK, userResp)
 }
-
-// Implement similar handlers for Car and Booking
