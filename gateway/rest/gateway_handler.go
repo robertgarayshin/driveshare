@@ -8,6 +8,7 @@ import (
 	"github.com/robertgarayshin/driveshare/pkg/model/car"
 	"github.com/robertgarayshin/driveshare/pkg/model/user"
 	"net/http"
+	"strconv"
 	"time"
 
 	"google.golang.org/grpc"
@@ -92,6 +93,26 @@ type Review struct {
 	CreatedAt string    `json:"createdAt"`
 }
 
+type Documents struct {
+	Passport1      string `json:"passport1"`
+	Passport2      string `json:"passport2"`
+	DriverLicense1 string `json:"driverLicense1"`
+	DriverLicense2 string `json:"driverLicense2"`
+}
+
+type Rent struct {
+	Id        int    `json:"id"`
+	CarId     int    `json:"carId"`
+	RentBegin string `json:"rentBegin"`
+	RentEnd   string `json:"rentEnd"`
+	Status    string `json:"status"`
+	CreatedAt string `json:"createdAt"`
+	Model     string `json:"model"`
+	Photo     string `json:"photo"`
+	Renter    int    `json:"renter"`
+	Seller    int    `json:"seller"`
+}
+
 const (
 	signingKey = "qrkjk#4#%35FSFJlja#4353KSFjH"
 	tokenTTL   = 12 * time.Hour
@@ -118,6 +139,7 @@ func (h *GatewayHandler) RegisterRoutes() *gin.Engine {
 		users.GET(":id", h.GetUser)
 		users.OPTIONS("", h.EditProfilePreflight)
 		users.PUT("", h.EditProfile)
+		users.GET(":id/documents", h.GetUserDocuments)
 	}
 	router.GET("user/:id", h.GetUser)
 	router.GET("car/categories", h.GetCategories)
@@ -125,6 +147,12 @@ func (h *GatewayHandler) RegisterRoutes() *gin.Engine {
 	{
 		cars.GET("", h.GetCars)
 		cars.GET(":id", h.GetCar)
+		cars.GET("/favorites", h.GetCars)
+	}
+
+	rents := router.Group("rent")
+	{
+		rents.GET("", h.GetRequests)
 	}
 	router.OPTIONS("auth/sign-in", h.SignInPreflight)
 
@@ -136,7 +164,8 @@ func (h *GatewayHandler) RegisterRoutes() *gin.Engine {
 
 func (h *GatewayHandler) GetCars(ctx *gin.Context) {
 	size := ctx.Query("size")
-	fmt.Println(size)
+	user, _ := strconv.Atoi(ctx.Query("userId"))
+	fmt.Println(size, user)
 	ctx.Header("Access-Control-Allow-Origin", "*")
 	ctx.Header("Access-Control-Allow-Methods", "PUT, POST, GET, DELETE, OPTIONS")
 
@@ -485,6 +514,21 @@ func (h *GatewayHandler) EditProfile(ctx *gin.Context) {
 	spew.Dump(usr)
 }
 
+func (h *GatewayHandler) GetUserDocuments(ctx *gin.Context) {
+	ctx.Header("Access-Control-Allow-Origin", "*")
+	ctx.Header("Access-Control-Allow-Methods", "PUT, POST, GET, DELETE, OPTIONS")
+
+	docs := Documents{
+		Passport1:      "https://opis-cdn.tinkoffjournal.ru/mercury/easy-breezy-passport-before.hasxgdjplsgq.png",
+		Passport2:      "https://migranturus.com/wp-content/uploads/2019/06/propiska-1.jpg",
+		DriverLicense1: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT3NpM8s2cZkCV12wvBuzlDGQeeU-iFwzi7Fw&s",
+		DriverLicense2: "https://upload.wikimedia.org/wikipedia/commons/5/59/%D0%92%D0%BE%D0%B4%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D1%81%D0%BA%D0%BE%D0%B5_%D1%83%D0%B4%D0%BE%D1%81%D1%82%D0%BE%D0%B2%D0%B5%D1%80%D0%B5%D0%BD%D0%B8%D0%B5_%D0%A0%D0%A4_%28%D0%BD%D0%BE%D0%B2%D0%BE%D0%B3%D0%BE_%D0%BE%D0%B1%D1%80%D0%B0%D0%B7%D1%86%D0%B0%29_%D0%B2%D1%8B%D0%B4%D0%B0%D0%BD%D0%BD%D0%BE%D0%B5_%D0%B2_2011_%D0%B3%D0%BE%D0%B4%D1%83-%D0%BE%D0%B1%D1%80%D0%B0%D1%82%D0%BD%D0%B0%D1%8F_%D1%81%D1%82%D0%BE%D1%80%D0%BE%D0%BD%D0%B0._%D0%9A%D0%B0%D0%B7%D0%B0%D0%BD%D1%8C.png",
+	}
+
+	ctx.JSON(http.StatusOK, docs)
+
+}
+
 func (h *GatewayHandler) GetReview(ctx *gin.Context) {
 	ctx.Header("Access-Control-Allow-Origin", "*")
 	ctx.Header("Access-Control-Allow-Methods", "PUT, POST, GET, DELETE, OPTIONS")
@@ -506,4 +550,24 @@ func (h *GatewayHandler) GetReview(ctx *gin.Context) {
 			},
 			CreatedAt: "10 окт 2022",
 		}})
+}
+
+func (h *GatewayHandler) GetRequests(ctx *gin.Context) {
+	ctx.Header("Access-Control-Allow-Origin", "*")
+	ctx.Header("Access-Control-Allow-Methods", "PUT, POST, GET, DELETE, OPTIONS")
+
+	ctx.JSON(http.StatusOK, []Rent{
+		{
+			Id:        1,
+			CarId:     1,
+			RentBegin: "22.06.24",
+			RentEnd:   "23.03.24",
+			Status:    "new",
+			CreatedAt: "02.06.2024",
+			Model:     "tyest",
+			Photo:     "https://munokrug-begovoe.ru/wp-content/uploads/images/4/voditelskie-prava-kategorii-E5B6D2.jpg",
+			Renter:    1,
+			Seller:    1,
+		},
+	})
 }
