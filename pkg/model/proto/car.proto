@@ -31,3 +31,18 @@ message GetCarResponse {
   string brand = 3;
   bool available = 4;
 }
+
+message Category {
+  string id = 1;
+  string name = 2;
+  string photo = 3;
+  int32 minPrice = 4;
+  int32 maxPrice = 5;
+}
+
+message CategoryRequest {
+}
+
+message CategoryResponse {
+  repeated Category categories = 1;
+}

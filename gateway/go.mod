@@ -1,10 +1,11 @@
 module gateway
 
-go 1.21
+go 1.20
 
 require (
+	github.com/davecgh/go-spew v1.1.1
+	github.com/dgrijalva/jwt-go v3.2.0+incompatible
 	github.com/gin-gonic/gin v1.10.0
-	github.com/gorilla/mux v1.8.1
 	github.com/robertgarayshin/driveshare v0.0.0-20240528195727-02e793c623c5
 	google.golang.org/grpc v1.64.0
 )
